@@ -17,7 +17,7 @@ class TodosController extends Controller
     public function index()
     {
       //fetch all todos
-      $todos = Todo::paginate(15);
+      $todos = Todo::orderBy('created_at', 'desc')->paginate(5);
       //return the collection of todo items as a resource
       return TodoResource::collection($todos);
     }

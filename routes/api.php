@@ -39,4 +39,4 @@ $todosAPIRoutes = function(){
   Route::delete("/{id}", "TodosController@destroy");
 };
 
-Route::group(["prefix" => "/api/todos"], $todosAPIRoutes);
+Route::group(["prefix" => "/todos"], $todosAPIRoutes);
