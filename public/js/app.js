@@ -13976,7 +13976,7 @@ module.exports = function normalizeComponent (
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(13);
-module.exports = __webpack_require__(44);
+module.exports = __webpack_require__(45);
 
 
 /***/ }),
@@ -14001,7 +14001,7 @@ window.Vue = __webpack_require__(37);
  */
 
 Vue.component('todo', __webpack_require__(40));
-Vue.component('navbar', __webpack_require__(42));
+Vue.component('navbar', __webpack_require__(43));
 
 var app = new Vue({
   el: '#app'
@@ -47266,9 +47266,9 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 var disposed = false
 var normalizeComponent = __webpack_require__(11)
 /* script */
-var __vue_script__ = __webpack_require__(49)
+var __vue_script__ = __webpack_require__(41)
 /* template */
-var __vue_template__ = __webpack_require__(41)
+var __vue_template__ = __webpack_require__(42)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -47308,13 +47308,73 @@ module.exports = Component.exports
 
 /***/ }),
 /* 41 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      todos: [],
+      todo: {
+        'id': '',
+        'title': '',
+        'body': ''
+      },
+      todo_id: '',
+      pagination: {},
+      edit: false
+
+    };
+  },
+  created: function created() {
+    this.fetchTodos();
+  },
+
+  /** method to fetch all todo items */
+  methods: {
+    fetchTodos: function fetchTodos() {
+      var _this = this;
+
+      fetch('api/todos').then(function (res) {
+        return res.json();
+      }).then(function (res) {
+        _this.todos = res.data;
+      });
+    }
+  }
+
+});
+
+/***/ }),
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div")
+  return _c(
+    "div",
+    _vm._l(_vm.todos, function(todo) {
+      return _c("div", { key: todo.id, staticClass: "card card-body mb-2" }, [
+        _c("h3", [_vm._v(_vm._s(todo.title))]),
+        _vm._v(" "),
+        _c("p", [_vm._v(_vm._s(todo.body))])
+      ])
+    })
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -47327,7 +47387,7 @@ if (false) {
 }
 
 /***/ }),
-/* 42 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
@@ -47335,7 +47395,7 @@ var normalizeComponent = __webpack_require__(11)
 /* script */
 var __vue_script__ = null
 /* template */
-var __vue_template__ = __webpack_require__(43)
+var __vue_template__ = __webpack_require__(44)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -47374,7 +47434,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 43 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -47430,40 +47490,10 @@ if (false) {
 }
 
 /***/ }),
-/* 44 */
+/* 45 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 45 */,
-/* 46 */,
-/* 47 */,
-/* 48 */,
-/* 49 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-  data: function data() {
-    return {
-      todos: [],
-      todo: {
-        'id': '',
-        'title': '',
-        'body': ''
-      }
-    };
-  }
-});
 
 /***/ })
 /******/ ]);
