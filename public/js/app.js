@@ -47321,6 +47321,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -47344,14 +47352,46 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
   /** method to fetch all todo items */
   methods: {
-    fetchTodos: function fetchTodos() {
+    fetchTodos: function fetchTodos(page_url) {
       var _this = this;
 
-      fetch('api/todos').then(function (res) {
+      var vm = this;
+      page_url = page_url || 'api/todos';
+      fetch(page_url).then(function (res) {
         return res.json();
       }).then(function (res) {
         _this.todos = res.data;
+        vm.makePagination(res.meta, res.links);
+      }).catch(function (err) {
+        return console.log(err);
       });
+    },
+    makePagination: function makePagination(meta, links) {
+      var pagination = {
+        current_page: meta.current_page,
+        last_page: meta.last_page,
+        last_page_url: links.last,
+        next_page_url: links.next,
+        prev_page_url: links.prev
+      };
+      this.pagination = pagination;
+    },
+    deleteTodo: function deleteTodo(todo_id) {
+      var _this2 = this;
+
+      if (confirm("Are you sure?")) {
+        fetch('/api/todo/' + todo_id, {
+          method: 'DELETE'
+
+        }).then(function (res) {
+          return res.json();
+        }).then(function (data) {
+          alert("Todo item removed");
+          _this2.fetchTodos();
+        }).catch(function (err) {
+          return console.log(err);
+        });
+      }
     }
   }
 
@@ -47367,13 +47407,74 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    _vm._l(_vm.todos, function(todo) {
-      return _c("div", { key: todo.id, staticClass: "card card-body mb-2" }, [
-        _c("h3", [_vm._v(_vm._s(todo.title))]),
+    [
+      _vm._l(_vm.todos, function(todo) {
+        return _c("div", { key: todo.id, staticClass: "card card-body mb-2" }, [
+          _c("h4", [_vm._v(_vm._s(todo.title))]),
+          _vm._v(" "),
+          _c("p", [_vm._v(_vm._s(todo.body))]),
+          _vm._v(" "),
+          _c("hr"),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-danger",
+              on: {
+                click: function($event) {
+                  _vm.deleteTodo(todo.id)
+                }
+              }
+            },
+            [_vm._v("Delete")]
+          )
+        ])
+      }),
+      _vm._v(" "),
+      _c("ul", { staticClass: "pagination" }, [
+        _c("li", { class: [{ disabled: !_vm.pagination.prev_page_url }] }, [
+          _c(
+            "a",
+            {
+              attrs: { href: "#!" },
+              on: {
+                click: function($event) {
+                  _vm.fetchTodos(_vm.pagination.prev_page_url)
+                }
+              }
+            },
+            [_vm._v("previous")]
+          )
+        ]),
         _vm._v(" "),
-        _c("p", [_vm._v(_vm._s(todo.body))])
+        _c("li", { staticClass: "page-item disabled" }, [
+          _c("a", { attrs: { href: "#" } }, [
+            _vm._v(
+              "Page " +
+                _vm._s(_vm.pagination.current_page) +
+                " Of " +
+                _vm._s(_vm.pagination.last_page)
+            )
+          ])
+        ]),
+        _vm._v(" "),
+        _c("li", { class: [{ disabled: !_vm.pagination.next_page_url }] }, [
+          _c(
+            "a",
+            {
+              attrs: { href: "#!" },
+              on: {
+                click: function($event) {
+                  _vm.fetchTodos(_vm.pagination.next_page_url)
+                }
+              }
+            },
+            [_vm._v("next")]
+          )
+        ])
       ])
-    })
+    ],
+    2
   )
 }
 var staticRenderFns = []
