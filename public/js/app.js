@@ -47329,6 +47329,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -47380,7 +47398,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var _this2 = this;
 
       if (confirm("Are you sure?")) {
-        fetch('/api/todo/' + todo_id, {
+        fetch('api/todos/' + todo_id, {
           method: 'DELETE'
 
         }).then(function (res) {
@@ -47409,26 +47427,55 @@ var render = function() {
     "div",
     [
       _vm._l(_vm.todos, function(todo) {
-        return _c("div", { key: todo.id, staticClass: "card card-body mb-2" }, [
-          _c("h4", [_vm._v(_vm._s(todo.title))]),
-          _vm._v(" "),
-          _c("p", [_vm._v(_vm._s(todo.body))]),
-          _vm._v(" "),
-          _c("hr"),
-          _vm._v(" "),
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-danger",
-              on: {
-                click: function($event) {
-                  _vm.deleteTodo(todo.id)
-                }
-              }
-            },
-            [_vm._v("Delete")]
-          )
-        ])
+        return _c(
+          "div",
+          {
+            key: todo.id,
+            staticClass: "row",
+            staticStyle: {
+              width: "420px",
+              left: "20px",
+              display: "inline-block",
+              "margin-right": "40px"
+            }
+          },
+          [
+            _c(
+              "div",
+              { staticClass: "col s12 m4", staticStyle: { width: "100%" } },
+              [
+                _c(
+                  "div",
+                  { staticClass: "card blue-grey darken-1 right-align " },
+                  [
+                    _c("div", { staticClass: "card-content white-text" }, [
+                      _c("span", { staticClass: "card-title" }, [
+                        _vm._v(_vm._s(todo.title))
+                      ]),
+                      _vm._v(" "),
+                      _c("p", [_vm._v(_vm._s(todo.body))])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "card-action" }, [
+                      _c(
+                        "a",
+                        {
+                          attrs: { href: "#" },
+                          on: {
+                            click: function($event) {
+                              _vm.deleteTodo(todo.id)
+                            }
+                          }
+                        },
+                        [_vm._v("Delete")]
+                      )
+                    ])
+                  ]
+                )
+              ]
+            )
+          ]
+        )
       }),
       _vm._v(" "),
       _c("ul", { staticClass: "pagination" }, [
@@ -47472,12 +47519,28 @@ var render = function() {
             [_vm._v("next")]
           )
         ])
-      ])
+      ]),
+      _vm._v(" "),
+      _vm._m(0)
     ],
     2
   )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "a",
+      {
+        staticClass:
+          "btn-floating waves-effect waves-light btn-large orange darken-3 right"
+      },
+      [_c("i", { staticClass: "material-icons" }, [_vm._v("add")])]
+    )
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -47563,20 +47626,6 @@ var staticRenderFns = [
           },
           [_c("i", { staticClass: "material-icons" }, [_vm._v("menu")])]
         )
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "nav-content" }, [
-        _c("ul", { staticClass: "tabs tabs-transparent" }, [
-          _c("li", { staticClass: "tab" }, [
-            _c("a", { attrs: { href: "#test1" } }, [_vm._v("Projects")])
-          ]),
-          _vm._v(" "),
-          _c("li", { staticClass: "tab" }, [
-            _c("a", { staticClass: "active", attrs: { href: "#test2" } }, [
-              _vm._v("Tasks")
-            ])
-          ])
-        ])
       ])
     ])
   }
