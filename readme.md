@@ -1,6 +1,12 @@
-# Triboard API
+# Triboard 
 
-> Laravel 5.6 API that uses the API resources. This is an API for a Todo CRUD app
+> Laravel 5.6 is a full Todo web Application which is powered by Laravel's API resources. The discription for the API can be found below.
+
+
+<h2 id="screenshots">Screenshots</h2>
+
+![](screenshots/triboard.png)
+
 
 ## Quick Start
 

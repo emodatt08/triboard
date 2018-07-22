@@ -42,7 +42,7 @@ class TodosController extends Controller
     {
         //
         $todo = $request->isMethod("put") ? Todo::findOrFail($request->todo_id) : new Todo;
-        $todo->id = $request->input("todo_id");
+        //$todo->id = $request->input("todo_id");
         $todo->title = $request->input("title");
         $todo->body = $request->input("body");
           if($todo->save()){

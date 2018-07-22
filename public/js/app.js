@@ -47347,6 +47347,38 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -47410,6 +47442,55 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           return console.log(err);
         });
       }
+    },
+    addTodo: function addTodo() {
+      var _this3 = this;
+
+      if (this.edit === false) {
+        //add
+        fetch('api/todos', {
+          method: 'POST',
+          body: JSON.stringify(this.todo),
+          headers: {
+            'Content-type': 'application/json'
+          }
+        }).then(function (res) {
+          return res.json();
+        }).then(function (data) {
+          _this3.todo.title = "";
+          _this3.todo.body = "";
+          alert("Todo added Successfully");
+          _this3.fetchTodos();
+        }).catch(function (err) {
+          return console.log(err);
+        });
+      } else {
+        //update
+        fetch('api/todos', {
+          method: 'PUT',
+          body: JSON.stringify(this.todo),
+          headers: {
+            'Content-type': 'application/json'
+          }
+        }).then(function (res) {
+          return res.json();
+        }).then(function (data) {
+          _this3.todo.title = "";
+          _this3.todo.body = "";
+          alert("Todo updated Successfully");
+          _this3.fetchTodos();
+          window.location.reload(true);
+        }).catch(function (err) {
+          return console.log(err);
+        });
+      }
+    },
+    editTodo: function editTodo(todo) {
+      this.edit = true;
+      this.todo.id = todo.id;
+      this.todo.todo_id = todo.id;
+      this.todo.title = todo.title;
+      this.todo.body = todo.body;
     }
   }
 
@@ -47426,6 +47507,98 @@ var render = function() {
   return _c(
     "div",
     [
+      _c(
+        "div",
+        { staticClass: "row", staticStyle: { "padding-top": "15px" } },
+        [
+          _c(
+            "form",
+            {
+              staticClass: "col s12",
+              on: {
+                submit: function($event) {
+                  $event.preventDefault()
+                  return _vm.addTodo($event)
+                }
+              }
+            },
+            [
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "input-field col s6" }, [
+                  _c("i", { staticClass: "material-icons prefix" }, [
+                    _vm._v("title")
+                  ]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.todo.title,
+                        expression: "todo.title"
+                      }
+                    ],
+                    staticClass: "validate",
+                    attrs: {
+                      id: "icon_prefix",
+                      type: "text",
+                      placeholder: "Title"
+                    },
+                    domProps: { value: _vm.todo.title },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.todo, "title", $event.target.value)
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("label", { attrs: { for: "icon_prefix" } }, [
+                    _vm._v("Title")
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "input-field col s6" }, [
+                  _c("i", { staticClass: "material-icons prefix" }, [
+                    _vm._v("assignment")
+                  ]),
+                  _vm._v(" "),
+                  _c("textarea", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.todo.body,
+                        expression: "todo.body"
+                      }
+                    ],
+                    staticClass: "materialize-textarea",
+                    attrs: { placeholder: "Body" },
+                    domProps: { value: _vm.todo.body },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.todo, "body", $event.target.value)
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("label", { attrs: { for: "icon_telephone" } }, [
+                    _vm._v("Body")
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _vm._m(0)
+            ]
+          )
+        ]
+      ),
+      _vm._v(" "),
       _vm._l(_vm.todos, function(todo) {
         return _c(
           "div",
@@ -47468,6 +47641,19 @@ var render = function() {
                           }
                         },
                         [_vm._v("Delete")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "a",
+                        {
+                          attrs: { href: "#" },
+                          on: {
+                            click: function($event) {
+                              _vm.editTodo(todo)
+                            }
+                          }
+                        },
+                        [_vm._v("Edit")]
                       )
                     ])
                   ]
@@ -47519,9 +47705,7 @@ var render = function() {
             [_vm._v("next")]
           )
         ])
-      ]),
-      _vm._v(" "),
-      _vm._m(0)
+      ])
     ],
     2
   )
@@ -47532,12 +47716,15 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c(
-      "a",
+      "button",
       {
-        staticClass:
-          "btn-floating waves-effect waves-light btn-large orange darken-3 right"
+        staticClass: "btn bottom orange darken-3 right",
+        attrs: { type: "submit" }
       },
-      [_c("i", { staticClass: "material-icons" }, [_vm._v("add")])]
+      [
+        _c("i", { staticClass: "material-icons left" }, [_vm._v("cloud_done")]),
+        _vm._v("save")
+      ]
     )
   }
 ]
@@ -47614,18 +47801,20 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("nav", { staticClass: "nav-extended orange darken-3" }, [
       _c("div", { staticClass: "nav-wrapper" }, [
-        _c("a", { staticClass: "brand-logo", attrs: { href: "#" } }, [
+        _c("a", { staticClass: "brand-logo", attrs: { href: "#!" } }, [
+          _c("i", { staticClass: "material-icons" }, [
+            _vm._v("event_available")
+          ]),
           _vm._v("Triboard")
         ]),
         _vm._v(" "),
-        _c(
-          "a",
-          {
-            staticClass: "sidenav-trigger",
-            attrs: { href: "#", "data-target": "mobile-demo" }
-          },
-          [_c("i", { staticClass: "material-icons" }, [_vm._v("menu")])]
-        )
+        _c("ul", { staticClass: "right hide-on-med-and-down" }, [
+          _c("li", [
+            _c("a", { attrs: { href: "sass.html" } }, [
+              _c("i", { staticClass: "material-icons" }, [_vm._v("add")])
+            ])
+          ])
+        ])
       ])
     ])
   }
