@@ -24,6 +24,9 @@ php artisan db:seed
 
 # If you get an error about an encryption key
 php artisan key:generate
+
+# Initialize vue.js by running:
+npm run watch
 ```
 
 ## Endpoints
